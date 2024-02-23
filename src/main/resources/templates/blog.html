@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Bootstrap 4 Blog Template For Developers</title>
+    <title>My blog</title>
     
     <!-- Meta -->
     <meta charset="utf-8">
@@ -26,7 +26,7 @@
 <body>
     
     <header class="header text-center">	    
-	    <h1 class="blog-name pt-lg-4 mb-0"><a href="index.html" th:href="@{/}">[[${blogName}]]</a></h1>
+	    <h1 class="blog-name pt-lg-4 mb-0"><a href="index.html" th:href="@{index.html}" th:text="${blogName}"></a></h1>
         
 	    <nav class="navbar navbar-expand-lg navbar-dark" >
            
@@ -36,28 +36,28 @@
 
 			<div id="navigation" class="collapse navbar-collapse flex-column" >
 				<div class="profile-section pt-3 pt-lg-0">
-				    <img class="profile-image mb-3 rounded-circle mx-auto" th:src="@{${profileImage}}" alt="image" >			
+				    <img class="profile-image mb-3 rounded-circle mx-auto" th:src="${profileImage}" alt="image" >			
 					
-					<div class="bio mb-3" th:text="${bio}">[[${bio}]]<br><a th:href="@{/about}">Find out more about me</a></div><!--//bio-->
+					<div class="bio mb-3" th:text="${bio}">Hi, my name is Anthony Doe. Briefly introduce yourself here. You can also provide a link to the about page.<br><a th:href="@{about.html}">Find out more about me</a></div><!--//bio-->
 					<ul class="social-list list-inline py-3 mx-auto">
-			            <li class="list-inline-item"><a href="#" th:href="@{${twitterLink}}"><i class="fab fa-twitter fa-fw"></i></a></li>
-			            <li class="list-inline-item"><a href="#" th:href="@{${linkedinLink}}"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
-			            <li class="list-inline-item"><a href="#" th:href="@{${githubLink}}"><i class="fab fa-github-alt fa-fw"></i></a></li>
-			            <li class="list-inline-item"><a href="#" th:href="@{${stackoverflowLink}}"><i class="fab fa-stack-overflow fa-fw"></i></a></li>
-			            <li class="list-inline-item"><a href="#" th:href="@{${codepenLink}}"><i class="fab fa-codepen fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#" th:href="${twitterLink}"><i class="fab fa-twitter fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#" th:href="${linkedinLink}"><i class="fab fa-linkedin-in fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#" th:href="${githubLink}"><i class="fab fa-github-alt fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#" th:href="${stackoverflowLink}"><i class="fab fa-stack-overflow fa-fw"></i></a></li>
+			            <li class="list-inline-item"><a href="#" th:href="${codepenLink}"><i class="fab fa-codepen fa-fw"></i></a></li>
 			        </ul><!--//social-list-->
 			        <hr> 
 				</div><!--//profile-section-->
 				
 				<ul class="navbar-nav flex-column text-left">
-					<li class="nav-item">
-					    <a class="nav-link" href="index.html" th:href="@{/}"><i class="fas fa-home fa-fw mr-2"></i>Blog Home <span class="sr-only">(current)</span></a>
-					</li>
 					<li class="nav-item active">
-					    <a class="nav-link" href="blog-post.html" th:href="@{/blog-post}"><i class="fas fa-bookmark fa-fw mr-2"></i>Blog Post</a>
+					    <a class="nav-link" href="index.html" th:href="@{index.html}"><i class="fas fa-home fa-fw mr-2"></i>Blog Home <span class="sr-only">(current)</span></a>
 					</li>
 					<li class="nav-item">
-					    <a class="nav-link" href="about.html" th:href="@{/about}"><i class="fas fa-user fa-fw mr-2"></i>About Me</a>
+					    <a class="nav-link" href="blog-post.html" th:href="@{blog-post.html}"><i class="fas fa-bookmark fa-fw mr-2"></i>Blog Post</a>
+					</li>
+					<li class="nav-item">
+					    <a class="nav-link" href="about.html" th:href="@{about.html}"><i class="fas fa-user fa-fw mr-2"></i>About Me</a>
 					</li>
 				</ul>
 				
@@ -73,29 +73,21 @@
 	    <article class="blog-post px-3 py-5 p-md-5">
 		    <div class="container">
 			    <header class="blog-post-header">
-				    <h2 class="title mb-2">[[${blogPostTitle}]]</h2>
-				    <div class="meta mb-3"><span class="date">[[${blogPostPublishedDate}]]</span><span class="time">[[${blogPostReadingTime}]]</span><span class="comment"><a href="#">[[${blogPostCommentsCount}]] comments</a></span></div>
+				    <h2 class="title mb-2" th:text="${frontMatter.title}"></h2>
+				    <div class="meta mb-3"><span class="date" th:text="${frontMatter.date}"></span></div>
 			    </header>
 			    
 			    <div class="blog-post-body">
 				    <figure class="blog-banner">
-				        <a href="https://made4dev.com"><img class="img-fluid" th:src="@{${blogPostImageUrl}}" alt="image"></a>
-				        <figcaption class="mt-2 text-center image-caption">[[${blogPostImageCaption}]]</figcaption>
+				        <img class="img-fluid" th:src="${frontMatter.image}" alt="image">
+				        
 				    </figure>
-				    <p>[[${blogPostContent}]]</p>
+				    <p th:utext="${markdownContent}"></p>
 			    </div>
 		    </div><!--//container-->
 	    </article>
 	    
-	    <section class="promo-section theme-bg-light py-5 text-center">
-		    <div class="container">
-			    <h2 class="title">Promo Section Heading</h2>
-			    <p>You can use this section to promote your side projects etc. [[${promoSectionText}]]</p>
-                <figure class="promo-figure">
-			        <a href="https://made4dev.com" target="_blank"><img class="img-fluid" src="assets/images/promo-banner.jpg" alt="image"></a>
-			    </figure>
-		    </div><!--//container-->
-	    </section><!--//promo-section-->
+	    
 	    
     </div><!--//main-wrapper-->
        
@@ -110,4 +102,4 @@
     <!-- Custom JS -->
     <script src="../assets/js/blog.js"></script>
     
-    <!--
+  

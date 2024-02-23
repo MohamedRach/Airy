@@ -1,7 +1,7 @@
 ---
-title: My Blog Post Title
+title: My Blog2 Post Title
 date: 2024-02-23
-image: ../assets/images/blog/blog-post-thumb-1.jpg
+image: ../assets/images/blog/blog-post-thumb-2.jpg
 description: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer commodo mi id nisi fringilla, id ultricies sapien varius. Quisque eleifend, quam vel fermentum lacinia, arcu justo condimentum urna, vitae venenatis nulla ex et mauris. Aliquam erat volutpat. Vivamus sagittis semper elit, non efficitur velit auctor vitae. Nulla facilisi. Proin non congue ligula.
 ---
 

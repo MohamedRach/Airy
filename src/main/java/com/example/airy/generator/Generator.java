@@ -14,6 +14,15 @@ public class Generator {
     private String inputDirectory;
     private String outputDirectory;
     private String configFile;
+    private String blogName;
+    private String profileImage;
+    private String bio;
+    private String twitterLink;
+    private String linkedinLink;
+    private String githubLink;
+    private String stackoverflowLink;
+    private String codepenLink;
+
 
     public Generator(String inputDirectory, String outputDirectory, String configFile) {
         this.inputDirectory = inputDirectory;
@@ -27,46 +36,87 @@ public class Generator {
         
         generateIndex(yamlConfig);
         // Process blog posts
-        //processBlogPosts();
+        processBlogPosts();
+        generateAboutMe();
+    }
+
+    private void generateAboutMe(){
+        String markdownContent = readMarkdownFile(this.inputDirectory + "/about.md");
+        // Extract front matter data and Markdown content
+        Map<String, Object> frontMatter = extractFrontMatter(markdownContent);
+        String markdownBody = extractMarkdownBody(markdownContent);
+
+        // Convert Markdown to HTML
+        String htmlContent = convertMarkdownToHtml(markdownBody);
+
+                        // Prepare Thymeleaf context with front matter and HTML content
+        Context context = new Context();
+        context.setVariable("blogName", this.blogName);
+        context.setVariable("profileImage", this.profileImage);
+        context.setVariable("bio", this.bio);
+        context.setVariable("twitterLink", this.twitterLink);
+        context.setVariable("linkedinLink", this.linkedinLink);
+        context.setVariable("githubLink", this.githubLink);
+        context.setVariable("stackoverflowLink", this.stackoverflowLink);
+        context.setVariable("codepenLink", this.codepenLink);
+        context.setVariable("frontMatter", frontMatter);
+        context.setVariable("markdownContent", htmlContent);
+
+        // Process Thymeleaf template
+        String outputHtml = processThymeleafTemplate("D:/web_dev/javaProject/airy/src/main/resources/templates/about.html", context);
+
+                        // Write output HTML to a file
+        writeHtmlFile(outputHtml, outputDirectory + "/" + "about.html");
     }
 
     private void generateIndex(Map<String, Object> config){
         Map<String, Object> blog = (Map<String, Object>) config.get("blog");
-        String blogName = (String) blog.get("name");
-        String profileImage = (String) blog.get("profileImage");
-        String bio = (String) blog.get("bio");
-        String twitterLink = (String) blog.get("twitter_link");
-        String linkedinLink = (String) blog.get("linkedin_link");
-        String githubLink = (String) blog.get("github_link");
-        String stackoverflowLink = (String) blog.get("stackoverflow_link");
-        String codepenLink = (String) blog.get("codepen_link");
-        // Process index template
-        Context indexContext = new Context();
-        indexContext.setVariable("blogName", blogName);
-        indexContext.setVariable("profileImage", profileImage);
-        indexContext.setVariable("bio", bio);
-        indexContext.setVariable("twitterLink", twitterLink);
-        indexContext.setVariable("linkedinLink", linkedinLink);
-        indexContext.setVariable("githubLink", githubLink);
-        indexContext.setVariable("stackoverflowLink", stackoverflowLink);
-        indexContext.setVariable("codepenLink", codepenLink);
+        this.blogName = (String) blog.get("name");
+        this.profileImage = (String) blog.get("profileImage");
+        this.bio = (String) blog.get("bio");
+        this.twitterLink = (String) blog.get("twitter_link");
+        this.linkedinLink = (String) blog.get("linkedin_link");
+        this.githubLink = (String) blog.get("github_link");
+        this.stackoverflowLink = (String) blog.get("stackoverflow_link");
+        this.codepenLink = (String) blog.get("codepen_link");
+        List<BlogPost> blogPosts = new ArrayList<>();
+        try {
+            Files.list(Paths.get(inputDirectory)).forEach(path -> {
+                if (path.toString().endsWith(".md")) {
+                    String markdownContent = readMarkdownFile(path.toString());
+                    Map<String, Object> frontMatter = extractFrontMatter(markdownContent);
 
-        String indexHtml = processThymeleafTemplate("D:/web_dev/javaProject/airy/src/main/resources/templates/index.html", indexContext);
+                    BlogPost blogPost = new BlogPost();
+                    blogPost.setTitle((String) frontMatter.get("title"));
+                    blogPost.setDescription((String) frontMatter.get("description"));
+                    blogPost.setPublishedDate((Date) frontMatter.get("date"));
+                    blogPost.setImg((String) frontMatter.get("image"));
+                    blogPost.setLink(path.getFileName().toString().replace(".md", ".html"));
+                    blogPosts.add(blogPost);
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // Process index template
+        Context context = new Context();
+        context.setVariable("blogName", this.blogName);
+        context.setVariable("profileImage", this.profileImage);
+        context.setVariable("bio", this.bio);
+        context.setVariable("twitterLink", this.twitterLink);
+        context.setVariable("linkedinLink", this.linkedinLink);
+        context.setVariable("githubLink", this.githubLink);
+        context.setVariable("stackoverflowLink", this.stackoverflowLink);
+        context.setVariable("codepenLink", this.codepenLink);
+        context.setVariable("blogPosts", blogPosts);
+        String indexHtml = processThymeleafTemplate("D:/web_dev/javaProject/airy/src/main/resources/templates/index.html", context);
 
         // Write index HTML file
         writeHtmlFile(indexHtml, outputDirectory + "/index.html");
     }
     
 
-    private Map<String, Object> readYamlConfig(String configFile) {
-        try (InputStream inputStream = Files.newInputStream(Paths.get(configFile))) {
-            Yaml yaml = new Yaml();
-            return yaml.load(inputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return Collections.emptyMap();
-        }
-    }
+    
     private static Map<String, Object> readYamlFile(String filePath) {
         try {
             
@@ -80,27 +130,41 @@ public class Generator {
     private void processBlogPosts() {
         try {
             Files.list(Paths.get(inputDirectory)).forEach(path -> {
-                if (path.toString().endsWith(".md")) {
-                    String markdownContent = readMarkdownFile(path.toString());
+                if (Objects.equals(path.getFileName().toString(), "about.md")){
+                    return;
+                } else {
+                    if (path.toString().endsWith(".md")) {
+                    
+                        String markdownContent = readMarkdownFile(path.toString());
 
-                    // Extract front matter data and Markdown content
-                    Map<String, Object> frontMatter = extractFrontMatter(markdownContent);
-                    String markdownBody = extractMarkdownBody(markdownContent);
+                        // Extract front matter data and Markdown content
+                        Map<String, Object> frontMatter = extractFrontMatter(markdownContent);
+                        String markdownBody = extractMarkdownBody(markdownContent);
 
-                    // Convert Markdown to HTML
-                    String htmlContent = convertMarkdownToHtml(markdownBody);
+                        // Convert Markdown to HTML
+                        String htmlContent = convertMarkdownToHtml(markdownBody);
 
-                    // Prepare Thymeleaf context with front matter and HTML content
-                    Context context = new Context();
-                    context.setVariable("frontMatter", frontMatter);
-                    context.setVariable("markdownContent", htmlContent);
+                        // Prepare Thymeleaf context with front matter and HTML content
+                        Context context = new Context();
+                        context.setVariable("blogName", this.blogName);
+                        context.setVariable("profileImage", this.profileImage);
+                        context.setVariable("bio", this.bio);
+                        context.setVariable("twitterLink", this.twitterLink);
+                        context.setVariable("linkedinLink", this.linkedinLink);
+                        context.setVariable("githubLink", this.githubLink);
+                        context.setVariable("stackoverflowLink", this.stackoverflowLink);
+                        context.setVariable("codepenLink", this.codepenLink);
+                        context.setVariable("frontMatter", frontMatter);
+                        context.setVariable("markdownContent", htmlContent);
 
-                    // Process Thymeleaf template
-                    String outputHtml = processThymeleafTemplate("D:/web_dev/javaProject/airy/src/main/resources/templates/blog.html", context);
+                        // Process Thymeleaf template
+                        String outputHtml = processThymeleafTemplate("D:/web_dev/javaProject/airy/src/main/resources/templates/blog.html", context);
 
-                    // Write output HTML to a file
-                    writeHtmlFile(outputHtml, outputDirectory + "/" + path.getFileName().toString().replace(".md", ".html"));
+                        // Write output HTML to a file
+                        writeHtmlFile(outputHtml, outputDirectory + "/" + path.getFileName().toString().replace(".md", ".html"));
+                    }
                 }
+                
             });
         } catch (IOException e) {
             e.printStackTrace();

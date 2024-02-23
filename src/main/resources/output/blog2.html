@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bootstrap 4 Blog Template For Developers</title>
+    <title>My blog</title>
     
     <!-- Meta -->
     <meta charset="utf-8">
@@ -14,8 +14,12 @@
     <!-- FontAwesome JS-->
     <script defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7" crossorigin="anonymous"></script>
     
+    <!-- Plugin CSS -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/monokai-sublime.min.css">
+    
     <!-- Theme CSS -->  
     <link id="theme-style" rel="stylesheet" href="../assets/css/theme-1.css">
+    
 
 </head> 
 
@@ -66,63 +70,46 @@
     
     <div class="main-wrapper">
 	    
-	    <section class="blog-list px-3 py-5 p-md-5">
+	    <article class="blog-post px-3 py-5 p-md-5">
 		    <div class="container">
-                <!-- Blog Entries -->
-                <div class="item mb-5">
-					<div class="media">
-						<img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="" alt="image">
-						<div class="media-body">
-							<h3 class="title mb-1"><a href="about.html">About Me</a></h3>
-							<div class="meta mb-1">
-								<span class="date"></span>
-	
-							</div>
-							<div class="intro"></div>
-							
-						</div><!--//media-body-->
-					</div><!--//media-->
-				</div>
-                <div class="item mb-5">
-					<div class="media">
-						<img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="../assets/images/blog/blog-post-thumb-2.jpg" alt="image">
-						<div class="media-body">
-							<h3 class="title mb-1"><a href="blog2.html">My Blog2 Post Title</a></h3>
-							<div class="meta mb-1">
-								<span class="date">Fri Feb 23 01:00:00 WEST 2024</span>
-	
-							</div>
-							<div class="intro">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer commodo mi id nisi fringilla, id ultricies sapien varius. Quisque eleifend, quam vel fermentum lacinia, arcu justo condimentum urna, vitae venenatis nulla ex et mauris. Aliquam erat volutpat. Vivamus sagittis semper elit, non efficitur velit auctor vitae. Nulla facilisi. Proin non congue ligula.</div>
-							
-						</div><!--//media-body-->
-					</div><!--//media-->
-				</div>
-                <div class="item mb-5">
-					<div class="media">
-						<img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="../assets/images/blog/blog-post-thumb-1.jpg" alt="image">
-						<div class="media-body">
-							<h3 class="title mb-1"><a href="input.html">My Blog Post Title</a></h3>
-							<div class="meta mb-1">
-								<span class="date">Fri Feb 23 01:00:00 WEST 2024</span>
-	
-							</div>
-							<div class="intro">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer commodo mi id nisi fringilla, id ultricies sapien varius. Quisque eleifend, quam vel fermentum lacinia, arcu justo condimentum urna, vitae venenatis nulla ex et mauris. Aliquam erat volutpat. Vivamus sagittis semper elit, non efficitur velit auctor vitae. Nulla facilisi. Proin non congue ligula.</div>
-							
-						</div><!--//media-body-->
-					</div><!--//media-->
-				</div><!--//item-->
-		    </div>
-	    </section>
+			    <header class="blog-post-header">
+				    <h2 class="title mb-2">My Blog2 Post Title</h2>
+				    <div class="meta mb-3"><span class="date">Fri Feb 23 01:00:00 WEST 2024</span></div>
+			    </header>
+			    
+			    <div class="blog-post-body">
+				    <figure class="blog-banner">
+				        <img class="img-fluid" src="../assets/images/blog/blog-post-thumb-2.jpg" alt="image">
+				        
+				    </figure>
+				    <p><h1>My Blog Post Title</h1>
+<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer commodo mi id nisi fringilla, id ultricies sapien varius. Quisque eleifend, quam vel fermentum lacinia, arcu justo condimentum urna, vitae venenatis nulla ex et mauris. Aliquam erat volutpat. Vivamus sagittis semper elit, non efficitur velit auctor vitae. Nulla facilisi. Proin non congue ligula.</p>
+<h2>Subheading 1</h2>
+<p>Fusce vehicula varius ligula, eu feugiat nunc fermentum sit amet. Nam condimentum vestibulum mauris, ac iaculis nisl fermentum eu. Sed non quam vel erat vestibulum eleifend. Integer nec massa eget purus pulvinar blandit ac ut arcu. Suspendisse potenti.</p>
+<h2>Subheading 2</h2>
+<p>Pellentesque ut finibus eros, nec posuere arcu. Sed vitae lacus tincidunt, suscipit lacus id, fringilla eros. Curabitur id libero at neque dictum vestibulum vel eget felis. Integer ut magna fringilla, consequat arcu ut, consectetur leo.</p>
+<h3>Subsubheading 1</h3>
+<p>Integer hendrerit aliquet erat, nec bibendum enim blandit nec. Nam lacinia lacus ac nunc iaculis consectetur. Morbi nec arcu ac nisl vehicula tempus. Donec sed massa nec tortor luctus viverra.</p>
+<h3>Subsubheading 2</h3>
+<p>Ut auctor massa vel justo convallis, in vestibulum erat sagittis. Maecenas interdum faucibus dolor, at molestie</p>
+</p>
+			    </div>
+		    </div><!--//container-->
+	    </article>
+	    
+	    
+	    
     </div><!--//main-wrapper-->
        
     <!-- Javascript -->          
     <script src="../assets/plugins/jquery-3.3.1.min.js"></script>
     <script src="../assets/plugins/popper.min.js"></script> 
     <script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script> 
-
-    <!-- Style Switcher (REMOVE ON YOUR PRODUCTION SITE) -->
-    <script src="../assets/js/demo/style-switcher.js"></script>     
     
+    <!-- Page Specific JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
 
-</body>
-</html>
+    <!-- Custom JS -->
+    <script src="../assets/js/blog.js"></script>
+    
+  

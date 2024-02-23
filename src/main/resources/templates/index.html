@@ -69,17 +69,20 @@
 	    <section class="blog-list px-3 py-5 p-md-5">
 		    <div class="container">
                 <!-- Blog Entries -->
-                <div th:each="blogEntry : ${blogEntries}" class="item mb-5">
-                    <div class="media">
-                        <img class="mr-3 img-fluid post-thumb d-none d-md-flex" th:src="${blogEntry.imageUrl}" alt="image">
-                        <div class="media-body">
-                            <h3 class="title mb-1"><a th:href="${blogEntry.url}" th:text="${blogEntry.title}">Blog Entry Title</a></h3>
-                            <div class="meta mb-1"><span class="date" th:text="${blogEntry.publishedDate}">Published Date</span><span class="time" th:text="${blogEntry.readingTime}">Reading Time</span><span class="comment"><a href="#" th:text="${blogEntry.commentsCount}">Comments Count</a></span></div>
-                            <div class="intro" th:text="${blogEntry.intro}">Intro Content</div>
-                            <a class="more-link" th:href="${blogEntry.url}">Read more &rarr;</a>
-                        </div><!--//media-body-->
-                    </div><!--//media-->
-                </div><!--//item-->
+                <div th:each="post : ${blogPosts}" class="item mb-5">
+					<div class="media">
+						<img class="mr-3 img-fluid post-thumb d-none d-md-flex" th:src="@{${post.img}}" alt="image">
+						<div class="media-body">
+							<h3 class="title mb-1"><a th:href="@{${post.link}}">[[${post.title}]]</a></h3>
+							<div class="meta mb-1">
+								<span class="date" th:text="${post.publishedDate}">Published 2 days ago</span>
+	
+							</div>
+							<div class="intro" th:text="${post.description}">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies...</div>
+							
+						</div><!--//media-body-->
+					</div><!--//media-->
+				</div><!--//item-->
 		    </div>
 	    </section>
     </div><!--//main-wrapper-->
