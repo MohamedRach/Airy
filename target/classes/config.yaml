@@ -1,0 +1,24 @@
+# Application settings
+app:
+  port: 8080
+  debug: true
+
+# Blog settings
+blog:
+  name: "Anthony's Blog"
+  author: "Anthony Doe"
+  bio: "Hi, my name is Anthony Doe. Briefly introduce yourself here. You can also provide a link to the about page."
+  twitter_link: "#"  # Twitter profile link
+  linkedin_link: "#"  # LinkedIn profile link
+  github_link: "#"    # GitHub profile link
+  stackoverflow_link: "#"  # Stack Overflow profile link
+  codepen_link: "#"   # CodePen profile link
+
+# Disqus settings
+disqus:
+  shortname: "your_disqus_shortname"
+
+# Theme settings
+theme:
+  primary_color: "#007bff"
+  secondary_color: "#6c757d"
