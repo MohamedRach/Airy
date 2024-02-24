@@ -1,4 +1,4 @@
-package com.example.airy;
+package com.example.airy.generator;
 
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.templateresolver.FileTemplateResolver;

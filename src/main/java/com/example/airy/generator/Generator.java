@@ -5,9 +5,9 @@ import java.util.*;
 import org.commonmark.node.*;
 import org.commonmark.parser.*;
 import org.commonmark.renderer.html.*;
-import org.thymeleaf.*;
+import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.*;
-import org.thymeleaf.templateresolver.*;
+import org.thymeleaf.templateresolver.FileTemplateResolver;
 import org.yaml.snakeyaml.*;
 
 public class Generator {
