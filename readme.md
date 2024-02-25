@@ -22,7 +22,7 @@ To use Airy, you need the following:
 
 ## Installation
 
-You can install Airy by downloading the JAR file from the [Releases](https://github.com/yourusername/airy/releases) page.
+You can install Airy by downloading the JAR file from the [Releases](https://github.com/MohamedRach/Airy/releases/tag/v0.1) page.
 
 ## Usage
 
