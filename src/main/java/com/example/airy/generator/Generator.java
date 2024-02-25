@@ -72,6 +72,7 @@ public class Generator {
     }
 
     private void generateIndex(Map<String, Object> config){
+        @SuppressWarnings("unchecked")
         Map<String, Object> blog = (Map<String, Object>) config.get("blog");
         this.blogName = (String) blog.get("name");
         this.profileImage = (String) blog.get("profileImage");
