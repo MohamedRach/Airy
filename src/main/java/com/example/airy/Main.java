@@ -24,7 +24,12 @@ public class Main {
         if (args.length > 0 && args[0].equals("start")) {
             createTemplateFolderStructure();
         }else if (args.length > 0 && args[0].equals("build")) {
-           Generator gen = new Generator("D:/web_dev/javaProject/airy/src/main/resources/input", "D:/web_dev/javaProject/airy/src/main/resources/output", "D:/web_dev/javaProject/airy/src/main/resources/config.yaml"); 
+            String currentDir = System.getProperty("user.dir");
+            String inputFolder = currentDir + "/input";
+            String outputFolder = currentDir + "/output";
+            String templatesFolder = currentDir + "/templates";
+            String configFile = currentDir + "/config.yaml";
+            Generator gen = new Generator(inputFolder, outputFolder, configFile, templatesFolder); 
             gen.generateFiles();
             HttpServer server = null;
             try{
@@ -47,7 +52,7 @@ public class Main {
                     }
 
                     // Load the requested file
-                    Path filePath = Paths.get("D:/web_dev/javaProject/airy/src/main/resources/output", requestedFile);
+                    Path filePath = Paths.get(outputFolder, requestedFile);
                     byte[] fileBytes;
                     try {
                         fileBytes = Files.readAllBytes(filePath);
@@ -104,14 +109,17 @@ public class Main {
         File assetsFolder = new File(outputDir, "assets");
         assetsFolder.mkdirs();
         // Create template folder
-        File templateDir = new File("template");
+        File templateDir = new File("templates");
         templateDir.mkdirs();
         
         // Copy index.html
         File indexHtmlSrc = new File("D:/web_dev/javaProject/airy/src/main/resources/templates/index.html");
         File indexHtmlDest = new File(templateDir, "index.html");
         copyFile(indexHtmlSrc, indexHtmlDest);
-
+        // Copy about.html
+         File aboutHtmlSrc = new File("D:/web_dev/javaProject/airy/src/main/resources/templates/about.html");
+        File aboutHtmlDest = new File(templateDir, "about.html");
+        copyFile(aboutHtmlSrc, aboutHtmlDest);
         // Copy blog.html
         File blogHtmlSrc = new File("D:/web_dev/javaProject/airy/src/main/resources/templates/blog.html");
         File blogHtmlDest = new File(templateDir, "blog.html");
@@ -130,6 +138,17 @@ public class Main {
                 });
             
             System.out.println("Assets copied successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // Create config.yaml file
+        File configFile = new File("config.yaml");
+        try {
+            FileWriter writer = new FileWriter(configFile);
+            // Write your YAML configuration here
+            writer.write("blog:\n  name: 'your blogs name'\n  author: 'author here'\n  bio: 'Bio here'\n  twitter_link: '#'\n  linkedin_link: '#'\n  github_link: '#'\n  stackoverflow_link: '#'\n  codepen_link: '#'");
+            writer.close();
+            System.out.println("config.yaml file created successfully.");
         } catch (IOException e) {
             e.printStackTrace();
         }

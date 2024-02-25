@@ -14,6 +14,7 @@ public class Generator {
     private String inputDirectory;
     private String outputDirectory;
     private String configFile;
+    private String templatesDirectory;
     private String blogName;
     private String profileImage;
     private String bio;
@@ -24,10 +25,11 @@ public class Generator {
     private String codepenLink;
 
 
-    public Generator(String inputDirectory, String outputDirectory, String configFile) {
+    public Generator(String inputDirectory, String outputDirectory, String configFile, String templatesDirectory) {
         this.inputDirectory = inputDirectory;
         this.outputDirectory = outputDirectory;
         this.configFile = configFile;
+        this.templatesDirectory = templatesDirectory;
     }
 
     public void generateFiles() {
@@ -63,7 +65,7 @@ public class Generator {
         context.setVariable("markdownContent", htmlContent);
 
         // Process Thymeleaf template
-        String outputHtml = processThymeleafTemplate("D:/web_dev/javaProject/airy/src/main/resources/templates/about.html", context);
+        String outputHtml = processThymeleafTemplate(templatesDirectory +"/about.html", context);
 
                         // Write output HTML to a file
         writeHtmlFile(outputHtml, outputDirectory + "/" + "about.html");
@@ -109,7 +111,7 @@ public class Generator {
         context.setVariable("stackoverflowLink", this.stackoverflowLink);
         context.setVariable("codepenLink", this.codepenLink);
         context.setVariable("blogPosts", blogPosts);
-        String indexHtml = processThymeleafTemplate("D:/web_dev/javaProject/airy/src/main/resources/templates/index.html", context);
+        String indexHtml = processThymeleafTemplate(templatesDirectory +"/index.html", context);
 
         // Write index HTML file
         writeHtmlFile(indexHtml, outputDirectory + "/index.html");
@@ -158,7 +160,7 @@ public class Generator {
                         context.setVariable("markdownContent", htmlContent);
 
                         // Process Thymeleaf template
-                        String outputHtml = processThymeleafTemplate("D:/web_dev/javaProject/airy/src/main/resources/templates/blog.html", context);
+                        String outputHtml = processThymeleafTemplate(templatesDirectory +"/blog.html", context);
 
                         // Write output HTML to a file
                         writeHtmlFile(outputHtml, outputDirectory + "/" + path.getFileName().toString().replace(".md", ".html"));
